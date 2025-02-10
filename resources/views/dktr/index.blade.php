@@ -8,6 +8,7 @@
             <h2>CRUD DOCTOR</h2>
             <div>
                 <a class="btn btn-success" href="{{ route('dktr.create') }}">Input Dokter</a>
+                <a class="btn btn-danger" href="{{ route('home') }}">Kembali</a>
             </div>
         </div>
     </div>
