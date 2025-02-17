@@ -29,6 +29,7 @@
             <th class="text-center">Nama Dokter</th>
             <th class="text-center">Tanggal Lahir</th>
             <th class="text-center">Spesialisasi</th>
+            <th class="text-center">Lokasi</th>
             <th width="200px" class="text-center">Aksi</th>
         </tr>
     </thead>
@@ -40,6 +41,7 @@
             <td>{{ $dokter->namaDokter }}</td>
             <td>{{ $dokter->tanggalLahir }}</td>
             <td>{{ $dokter->spesialisasi }}</td>
+            <td>{{ $dokter->lokasiPraktik }}</td>
             <td class="text-center">
                 <a class="btn btn-info btn-sm" href="{{ route('dktr.show', $dokter->id) }}">Show</a>
                 <a class="btn btn-primary btn-sm" href="{{ route('dktr.edit', $dokter->id) }}">Edit</a>

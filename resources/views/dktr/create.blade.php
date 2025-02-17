@@ -64,19 +64,9 @@
             <label for="lokasiPraktik" class="form-label"><strong>Lokasi Praktik:</strong></label>
             <select id="lokasiPraktik" class="form-select" name="lokasiPraktik">
                 <option>- Lokasi -</option>
-                <option value="Jatiwaringin">Jatiwaringin</option>
-                <option value="Cipayung">Cipayung</option>
-                <option value="Cilangkap">Cilangkap</option>
-                <option value="MunJul">MunJul</option>
-                <option value="Cibubur">Cibubur</option>
-                <option value="Jatinegara">Jatinegara</option>
-                <option value="Matraman">Matraman</option>
-                <option value="Kebon Jeruk">Kebon Jeruk</option>
-                <option value="Tangerang">Tangerang</option>
-                <option value="Bekasi">Bekasi</option>
-                <option value="Depok">Depok</option>
-                <option value="Tambun">Tambun</option>
-                <option value="Cikarang">Cikarang</option>
+                @foreach($ruangan as $r)
+                    <option value="{{ $r->namaRuangan }}">{{ $r->namaRuangan }}</option>
+                @endforeach
             </select>
         </div>
 

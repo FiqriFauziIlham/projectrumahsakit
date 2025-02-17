@@ -54,14 +54,14 @@
         </div>
 
         <div class="col-12 mb-3">
-            <label for="lokasiPraktik" class="form-label"><strong>Lokasi Praktik:</strong></label>
-            <select id="lokasiPraktik" class="form-select" name="lokasiPraktik">
-                <option>- Pilih Lokasi -</option>
-                @foreach (['Jatiwaringin', 'Cipayung', 'Cilangkap', 'MunJul', 'Cibubur', 'Jatinegara', 'Matraman', 'Kebon Jeruk', 'Tangerang', 'Bekasi', 'Depok', 'Tambun', 'Cikarang'] as $lokasi)
-                    <option value="{{ $lokasi }}" {{ $dktr->lokasiPraktik == $lokasi ? 'selected' : '' }}>{{ $lokasi }}</option>
-                @endforeach
-            </select>
-        </div>
+    <label for="lokasiPraktik" class="form-label"><strong>Lokasi Praktik:</strong></label>
+    <select id="lokasiPraktik" class="form-select" name="lokasiPraktik">
+        <option>- Pilih Lokasi -</option>
+        @foreach ($ruangan as $room)
+            <option value="{{ $room->namaRuangan }}" {{ isset($dktr) && $dktr->lokasiPraktik == $room->namaRuangan ? 'selected' : '' }}>{{ $room->namaRuangan }}</option>
+        @endforeach
+    </select>
+</div>
 
         <div class="col-12 mb-3">
             <label for="jamPraktik" class="form-label"><strong>Jam Praktik:</strong></label>

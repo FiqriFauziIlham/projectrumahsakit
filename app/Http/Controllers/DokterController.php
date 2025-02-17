@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dokter;
+use App\Models\Ruangan;
 
 class DokterController extends Controller
 {
@@ -20,9 +21,10 @@ class DokterController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('dktr.create');
-    }
+{
+    $ruangan = Ruangan::all(); // Ambil semua data ruangan
+    return view('dktr.create', compact('ruangan'));
+}
 
     /**
      * Store a newly created resource in storage.
@@ -56,8 +58,9 @@ class DokterController extends Controller
     public function edit(string $id)
     {
         $dktr = Dokter::findOrFail($id);
-        return view('dktr.edit', compact('dktr'));
-    }
+        $ruangan = Ruangan::all(); // Mengambil semua data ruangan
+        return view('dktr.edit', compact('dktr', 'ruangan'));
+    }    
 
     /**
      * Update the specified resource in storage.

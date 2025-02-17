@@ -23,8 +23,7 @@ return new class extends Migration
             // Tambahan dari struktur database
             $table->string('role')->nullable();
             $table->text('alamat')->nullable();
-            $table->string('nohp', 15)->nullable();
-            $table->string('profile_picture')->nullable();
+            $table->string('nohp')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
