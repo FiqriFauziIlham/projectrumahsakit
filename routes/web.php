@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\RuanganController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -12,6 +13,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::resource('dktr', DokterController::class)->middleware('auth');
+Route::resource('ruangan', RuanganController::class)->middleware('auth');
 
 Route::get('/login', [HomeController::class, 'loginpage'])->name('login');
 Route::post('actionLogin',[LoginController::class, 'actionLogin'])->name('actionLogin');

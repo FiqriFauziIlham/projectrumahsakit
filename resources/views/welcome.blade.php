@@ -41,9 +41,14 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('dktr') }}">CRUD Doktor</a>
-                        </li>
+                        @if(Auth::user()->role === 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('dktr') }}">CRUD Doktor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('ruangan') }}">CRUD Ruangan</a>
+                            </li>
+                        @endif
                     @endauth
                     <li class="nav-item dropdown">
                         @auth
