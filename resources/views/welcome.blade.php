@@ -48,6 +48,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('ruangan') }}">CRUD Ruangan</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('pasien') }}">CRUD Pasien</a>
+                            </li>
                         @endif
                     @endauth
                     <li class="nav-item dropdown">

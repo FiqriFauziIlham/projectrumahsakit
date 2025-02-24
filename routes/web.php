@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasienController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,7 @@ Route::get('/', function () {
 
 Route::resource('dktr', DokterController::class)->middleware('auth');
 Route::resource('ruangan', RuanganController::class)->middleware('auth');
+Route::resource('pasien', PasienController::class)->middleware('auth');
 
 Route::get('/login', [HomeController::class, 'loginpage'])->name('login');
 Route::post('actionLogin',[LoginController::class, 'actionLogin'])->name('actionLogin');

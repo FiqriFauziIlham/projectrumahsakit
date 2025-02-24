@@ -10,9 +10,37 @@ class RuanganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ruangan = Ruangan::latest()->paginate(5);
+        // Mulai query builder
+        $query = Ruangan::query();
+    
+        // Filter berdasarkan Kode Ruangan
+        if ($request->has('kodeRuangan') && $request->kodeRuangan != '') {
+            $query->where('kodeRuangan', 'like', '%' . $request->kodeRuangan . '%');
+        }
+    
+        // Filter berdasarkan Nama Ruangan
+        if ($request->has('namaRuangan') && $request->namaRuangan != '') {
+            $query->where('namaRuangan', 'like', '%' . $request->namaRuangan . '%');
+        }
+    
+        // Filter berdasarkan Daya Tampung
+        if ($request->has('dayaTampung') && $request->dayaTampung != '') {
+            $query->where('dayaTampung', $request->dayaTampung);
+        }
+    
+        // Filter berdasarkan Lokasi
+        if ($request->has('lokasi') && $request->lokasi != '') {
+            $query->where('lokasi', 'like', '%' . $request->lokasi . '%');
+        }
+    
+        // Paginasi hasil query
+        $ruangan = $query->latest()->paginate(5);
+    
+        // Menambahkan parameter filter ke pagination links
+        $ruangan->appends($request->all());
+    
         return view('ruangan.index', compact('ruangan'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

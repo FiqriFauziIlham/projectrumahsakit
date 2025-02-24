@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col-12 mb-3">
             <label for="idDokter" class="form-label"><strong>ID Dokter:</strong></label>
-            <input type="text" id="idDokter" name="idDokter" class="form-control" value="{{ $dktr->idDokter }}" readonly>
+            <input type="text" id="idDokter" name="idDokter" class="form-control" value="{{ $dktr->idDokter }}">
         </div>
 
         <div class="col-12 mb-3">

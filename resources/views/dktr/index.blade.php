@@ -21,10 +21,33 @@
     </div>
 @endif
 
+<!-- Filter Form -->
+<form method="GET" action="{{ route('dktr.index') }}">
+    <div class="row mt-3">
+        <div class="col">
+            <input type="text" name="idDokter" class="form-control" placeholder="Filter ID Dokter" value="{{ request('idDokter') }}">
+        </div>
+        <div class="col">
+            <input type="text" name="namaDokter" class="form-control" placeholder="Filter Nama Dokter" value="{{ request('namaDokter') }}">
+        </div>
+        <div class="col">
+            <input type="date" name="tanggalLahir" class="form-control" placeholder="Filter Tanggal Lahir" value="{{ request('tanggalLahir') }}">
+        </div>
+        <div class="col">
+            <input type="text" name="spesialisasi" class="form-control" placeholder="Filter Spesialisasi" value="{{ request('spesialisasi') }}">
+        </div>
+        <div class="col">
+            <input type="text" name="lokasiPraktik" class="form-control" placeholder="Filter Lokasi" value="{{ request('lokasiPraktik') }}">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
 <table class="table table-bordered mt-3">
     <thead class="table-dark">
         <tr>
-            <th width="50px" class="text-center">No</th>
             <th>ID Dokter</th>
             <th class="text-center">Nama Dokter</th>
             <th class="text-center">Tanggal Lahir</th>
@@ -36,7 +59,6 @@
     <tbody>
         @foreach ($dktr as $index => $dokter)
         <tr>
-            <td class="text-center">{{ $loop->iteration }}</td>
             <td>{{ $dokter->idDokter }}</td>
             <td>{{ $dokter->namaDokter }}</td>
             <td>{{ $dokter->tanggalLahir }}</td>
