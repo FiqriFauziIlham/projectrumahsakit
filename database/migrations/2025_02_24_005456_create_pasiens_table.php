@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->foreign('idDokter')->references('id')->on('dokters')->onDelete('cascade');
             $table->date('tanggalMasuk');
             $table->date('tanggalKeluar')->nullable();
-            $table->unsignedBigInteger('nomorKamar'); // Tambahkan kolom baru untuk foreign key ke id ruangan
-            $table->foreign('nomorKamar')->references('id')->on('ruangan')->onDelete('cascade'); // Foreign key ke id ruangan
+            $table->unsignedBigInteger('nomorKamar');
+            $table->foreign('nomorKamar')->references('id')->on('ruangan')->onDelete('cascade');
             $table->timestamps();
         });
     }

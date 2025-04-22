@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ruangan', function (Blueprint $table) {
-            $table->id(); // Auto-increment primary key
+            $table->id();
             $table->string('kodeRuangan');
             $table->string('namaRuangan');
             $table->string('dayaTampung');

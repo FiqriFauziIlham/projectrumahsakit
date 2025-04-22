@@ -20,45 +20,44 @@ class LoginController extends Controller
     }
 
     public function actionLogin(Request $request)
-{
-    $email = $request->input('email');
-    $password = $request->input('password');
-    $emailKey = 'login-attempts:' . $email;
-    $globalKey = 'global-login-attempts';
+    {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $emailKey = 'login-attempts:' . $email;
+        $globalKey = 'global-login-attempts';
 
-    if (RateLimiter::tooManyAttempts($globalKey, 5) || RateLimiter::tooManyAttempts($emailKey, 5)) {
-        $seconds = max(
-            RateLimiter::availableIn($globalKey),
-            RateLimiter::availableIn($emailKey)
-        );
-        Session::flash('error', "Anda telah mencoba login terlalu sering. Silakan coba lagi dalam $seconds detik.");
-        return redirect()->back();
+        if (RateLimiter::tooManyAttempts($globalKey, 5) || RateLimiter::tooManyAttempts($emailKey, 5)) {
+            $seconds = max(
+                RateLimiter::availableIn($globalKey),
+                RateLimiter::availableIn($emailKey)
+            );
+            Session::flash('error', "Anda telah mencoba login terlalu sering. Silakan coba lagi dalam $seconds detik.");
+            return redirect()->back();
+        }
+
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            RateLimiter::hit($emailKey, 60);
+            RateLimiter::hit($globalKey, 60);
+            Session::flash('error', 'Email Salah');
+            return redirect()->back();
+        }
+
+        if (!Hash::check($password, $user->password)) {
+            RateLimiter::hit($emailKey, 60);
+            RateLimiter::hit($globalKey, 60);
+            Session::flash('error', 'Password Salah');
+            return redirect()->back();
+        }
+
+        Auth::login($user);
+        RateLimiter::clear($emailKey);
+        RateLimiter::clear($globalKey);
+
+        session(['profile_picture' => $user->profile_picture]);
+
+        return redirect('/');
     }
-
-    $user = User::where('email', $email)->first();
-    if (!$user) {
-        RateLimiter::hit($emailKey, 60);
-        RateLimiter::hit($globalKey, 60);
-        Session::flash('error', 'Email Salah');
-        return redirect()->back();
-    }
-
-    if (!Hash::check($password, $user->password)) {
-        RateLimiter::hit($emailKey, 60);
-        RateLimiter::hit($globalKey, 60);
-        Session::flash('error', 'Password Salah');
-        return redirect()->back();
-    }
-
-    Auth::login($user);
-    RateLimiter::clear($emailKey);
-    RateLimiter::clear($globalKey);
-
-    // Simpan foto profil dalam session
-    session(['profile_picture' => $user->profile_picture]);
-
-    return redirect('/');
-}
 
 
     public function actionLogout()
@@ -102,13 +101,11 @@ class LoginController extends Controller
             'profile_picture.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
         ]);
 
-        // Proses upload gambar jika ada
         $profilePicturePath = null;
         if ($request->hasFile('profile_picture')) {
             $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public'); 
         }
 
-        // Jika validasi lolos, buat data baru
         $data = [
             'name' => $request->name,
             'email' => $request->email,
@@ -116,7 +113,7 @@ class LoginController extends Controller
             'alamat' => $request->alamat,
             'nohp' => $request->nohp,
             'role' => 'user',
-            'profile_picture' => $profilePicturePath, // Simpan path gambar
+            'profile_picture' => $profilePicturePath,
         ];
         User::create($data);
 

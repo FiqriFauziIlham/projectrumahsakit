@@ -21,14 +21,13 @@ class ForgotPasswordController extends Controller
         $request->validate(['email' => 'required|email|exists:users,email']);
     
         $email = $request->email;
-        $token = strtoupper(substr(str_shuffle('0123456789'), 0, 6)); // Hanya angka & capslock
+        $token = strtoupper(substr(str_shuffle('0123456789'), 0, 6));
     
         DB::table('password_reset_tokens')->updateOrInsert(
             ['email' => $email],
             ['token' => $token, 'created_at' => now()]
         );
     
-        // Gunakan queue untuk mengirim email dengan template
         Mail::to($email)->queue(new ResetPasswordMail($token));
     
         return response()->json(['status' => 'Kode reset telah dikirim ke email Anda.']);
@@ -93,5 +92,4 @@ public function verifyResetCode(Request $request)
 
         return redirect()->route('login')->with('success', 'Password berhasil diperbarui.');
     }
-
 }

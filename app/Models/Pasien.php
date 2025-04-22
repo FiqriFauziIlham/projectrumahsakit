@@ -19,12 +19,12 @@ class Pasien extends Model
 
     // Relasi ke Model Dokter (Foreign Key: idDokter)
     public function dokter()
-{
-    return $this->belongsTo(Dokter::class, 'idDokter');
-}
+    {
+        return $this->belongsTo(Dokter::class, 'idDokter');
+    }
 
-public function ruangan()
-{
-    return $this->belongsTo(Ruangan::class, 'nomorKamar');
-}
+    public function ruangan()
+    {
+        return $this->belongsTo(Ruangan::class, 'nomorKamar');
+    }
 }

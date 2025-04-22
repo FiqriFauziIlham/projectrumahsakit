@@ -30,8 +30,6 @@ class ProfileController extends Controller
             if ($user->profile_picture) {
                 Storage::disk('public')->delete($user->profile_picture);
             }
-
-            // Simpan file dan perbarui di database
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
             $user->update(['profile_picture' => $path]);
         }
